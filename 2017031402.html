@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>图片缩放展示</title>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+<canvas id="canvas" style="display: block; margin: 0 auto;border: 1px solid #aaa">
+	您的浏览器不支持canvas
+</canvas>
+<!-- 隐藏该canvas -->
+<canvas id="watermark-canvas" style="display: none;margin:0 auto;border:1px solid #aaa;">
+    您的浏览器尚不支持canvas
+</canvas>
+
+<input type="range" id="scale-range" min="0.5" max="3.0" step="0.01" value="1.0" style="display:block;margin:20px auto;width:800px"/>
+
+<script type="text/javascript">
+var canvas = document.getElementById("canvas")
+var context = canvas.getContext("2d")
+
+var watermarkCanvas = document.getElementById("watermark-canvas")
+var watermarkContext = watermarkCanvas.getContext("2d")
+
+var slider = document.getElementById("scale-range")
+
+
+window.onload = function(){
+
+    canvas.width = 800;
+    canvas.height = 500;
+
+    var scale = 1.0;
+
+    var img = new Image();
+    img.src = 'images/2017031401.png';
+    img.onload = function(){
+
+    	drawImage( img , scale )
+
+        slider.onmousemove = function(){
+            scale = slider.value
+            drawImage( img , scale )
+        }
+
+    }
+
+    // 绘制canvas水印
+    watermarkCanvas.width = 400;
+    watermarkCanvas.height = 100;
+
+    watermarkContext.font = "bold 50px Arial"
+    watermarkContext.lineWidth = "1"
+    watermarkContext.fillStyle = "rgba(255, 255, 255, 0.7 )"
+    watermarkContext.textBaseline = "middle";
+    watermarkContext.fillText( "emloxe.github.io" , 0 , 50 )
+
+
+    
+    function drawImage(img, scale){
+    	// 清除canvas内容
+    	context.clearRect( 0 , 0 , canvas.width , canvas.height )
+
+
+    	// 计算图片绘制的起始位置,使图片居中
+    	imageWidth = canvas.width * scale; // 因为图片默认要充满整个canvas画布，所以计算的图片宽度为此
+    	imageHeight = canvas.height * scale;
+    	x = canvas.width /2 - imageWidth / 2;
+    	y = canvas.height / 2 - imageHeight / 2;
+
+    	// 绘制图片
+    	context.drawImage( img , x , y , canvas.width*scale , canvas.height*scale )
+
+    	// 将watermarkCanvas绘制在context左下角
+    	context.drawImage( watermarkCanvas , canvas.width - watermarkCanvas.width ,
+        canvas.height - watermarkCanvas.height )
+    }
+    
+}
+
+	
+</script>
+
+
+</body>
+</html>

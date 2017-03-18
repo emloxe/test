@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas drawImage方法使用</title>
+	<style type="text/css">
+		pre{background: #efefef;}
+		p{margin-left: 50px;}
+	</style>
+</head>
+<body>
+
+<p>图片原图展示</p>
+<img src="images/2017031401.png" style="margin-left: 50px;">
+
+
+<br>
+<br>
+
+<pre>
+	context.drawImage(img, 0, 0)
+</pre>
+<p>将绘制起始位置定在(0, 0)，图片按原始大小展示</p>
+<canvas id="canvasa" style="display: block; margin:0 0 50px 50px;border: 1px solid #aaa;">
+	您的浏览器不支持canvas
+</canvas>
+
+
+<pre>
+	context.drawImage(img, 400, 250)
+</pre>
+<p>将绘制起始位置定在canvas中间，图片按原始大小展示，图片多出canvas的被裁剪</p>
+<canvas id="canvasb" style="display: block;margin:0 0 50px 50px;border: 1px solid #aaa;">
+	您的浏览器不支持canvas
+</canvas>
+
+<pre>
+	context.drawImage(img, 0, 0, 200, 100)
+</pre>
+<p>将绘制起始位置定在(0,0)，绘制图片宽高(200, 100)</p>
+<canvas id="canvasc" style="display: block; margin:0 0 50px 50px;border: 1px solid #aaa;">
+	您的浏览器不支持canvas
+</canvas>
+
+<pre>
+	context.drawImage(img, 0, 0, 100, 100, 0, 0, canvasd.width, canvasd.height)
+</pre>
+<p>从原始图片(0, 0)位置截取原始图片宽高为(100, 100)大小。将截取图片绘制在(0,0)位置好，绘制图片宽高为canvas容器宽高</p>
+<canvas id="canvasd" style="display: block; margin:0 0 50px 50px;border: 1px solid #aaa;">
+	您的浏览器不支持canvas
+</canvas>
+
+
+<script type="text/javascript">
+	var canvasa = document.getElementById("canvasa");
+	var contexta = canvasa.getContext("2d");
+
+	var canvasb = document.getElementById("canvasb");
+	var contextb = canvasb.getContext("2d");
+
+	var canvasc = document.getElementById("canvasc");
+	var contextc = canvasc.getContext("2d");
+
+	var canvasd = document.getElementById("canvasd");
+	var contextd = canvasd.getContext("2d");
+
+	var img = new Image();
+
+	window.onload = function(){
+
+		img.src = 'images/2017031401.png';
+		img.onload = function(){
+
+			canvasa.width = 800;
+			canvasa.height = 500;
+			canvasb.width = 800;
+			canvasb.height = 500;
+			canvasc.width = 800;
+			canvasc.height = 500;
+			canvasd.width = 800;
+			canvasd.height = 500;
+
+			contexta.drawImage(img, 0, 0);
+			contextb.drawImage(img, 400, 250);
+			contextc.drawImage(img, 400, 250, 200, 100);
+			contextd.drawImage(img, 0, 0, 100, 100, 0, 0, canvasd.width, canvasd.height);
+
+		}
+	}
+</script>
+
+
+
+
+</body>
+</html>

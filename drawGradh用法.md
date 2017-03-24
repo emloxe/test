@@ -43,7 +43,7 @@ new DrawGradh({
 |xAxis|数组|无|是|x轴坐标信息|
 |series|数组|无|是|数据信息|
 |style|对象|见下|否|x，y轴参数信息|
-|showXAxis|布尔|true|默认展示横坐标信息|
+|showXAxis|布尔|true|否|默认展示横坐标信息|
 
 
 
@@ -52,16 +52,15 @@ style
 
 |参数|类型|默认值|是否必须|说明|
 |---|-----|----|-----|-----|
-|csLeftPer|number||否|建立的坐标系在canvas画布上起始的left比例，也就是相对于canvas画布的值*比例来确定left值，取值范围为(0, 1]|
-|csTopPer|number||否|建立的坐标系在canvas画布上起始的top比例，取值范围为(0, 1]|
-|csWidthPer|number||否|建立的坐标系在canvas画布上宽度，取值范围为(0, 1]|
-|csHeightPer|number||否|建立的坐标系在canvas画布上高度，取值范围为(0, 1]|
+|csLeftPer|number|0.1|否|建立的坐标系在canvas画布上起始的left比例，也就是相对于canvas画布的值*比例来确定left值，取值范围为(0, 1]|
+|csTopPer|number|0.2|否|建立的坐标系在canvas画布上起始的top比例，取值范围为(0, 1]|
+|csWidthPer|number|0.8|否|建立的坐标系在canvas画布上宽度，取值范围为(0, 1]|
+|csHeightPer|number|0.6|否|建立的坐标系在canvas画布上高度，取值范围为(0, 1]|
 |csXLineColor|string|'#000'|否| 坐标轴X的颜色|
 |csYLineColor|string|'#aaa'|否| 坐标轴Y的颜色|
 |csXlineWidth|number| 1|否| 坐标轴X线条的宽度|
 |csYlineWidth|number| 0.2|否| 坐标轴Y线条的宽度|
 |csXEveLen|number| 5|否| 横坐标小短横的长度|
-
 |csXfont|string| "12px Arial"|否| 横坐标参数的 字号 字体|
 |csYfont|string| "12px Arial"|否| 纵坐标参数的 字号 字体|
 |csXfontColor|string| "#000"|否| 横坐标参数的颜色|
@@ -74,6 +73,7 @@ style
 
 
 title
+
 |参数|类型|默认值|是否必须|说明|
 |---|-----|----|-----|-----|
 |text|string| '图表'|否|图表标题|
@@ -83,6 +83,7 @@ title
 |left|number|20|否|距离底部的值|
 
 colorInfo 
+
 |参数|类型|默认值|是否必须|说明|
 |----|-----|----|-----|-----|
 |font|string| '12px  Arial'|否||

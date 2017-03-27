@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas文本绘制位置测试</title>
+	<style type="text/css">
+		body{
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+<p>画布为width: 400px; height: 200px;</p>
+<p>两线条交汇的为画布中点(200, 100)</p>
+<p>所有的文本设置的文本起点都为(200, 100)</p>
+<p>ctx.fillText("Hello World", 200, 100);</p>
+<p>测试不同的textAlign对文本的影响</p>
+
+<pre>
+ctx.textAlign = "start";
+</pre>
+<canvas id="myCanvas" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+
+<pre>
+ctx.textAlign = "end";
+</pre>
+<canvas id="myCanvas2" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+<pre>
+ctx.textAlign = "left";
+</pre>
+<canvas id="myCanvas3" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+<pre>
+ctx.textAlign = "center";
+</pre>
+<canvas id="myCanvas4" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+
+<pre>
+ctx.textAlign = "right";
+</pre>
+<canvas id="myCanvas5" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+<script type="text/javascript">
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.lineWidth = 1;  // 线条宽度
+	ctx.translate(0.5,0.5);
+	ctx.moveTo(0,100);  // 起始点，移动画笔到(0, 0)
+	ctx.lineTo(400,100);  // 终点
+	ctx.moveTo(200,0);  // 起始点，移动画笔到(0, 0)
+	ctx.lineTo(200,200);  // 终点
+	ctx.stroke();
+	ctx.textAlign = "start";
+	ctx.font="30px Arial";  // 字号 字体
+	ctx.fillText("Hello World",200,100);  // 内容 起始位置
+
+
+
+	var c2 = document.getElementById("myCanvas2");
+	var ctx2 = c2.getContext("2d");
+	ctx2.lineWidth = 1;  // 线条宽度
+	ctx2.translate(0.5,0.5);
+	ctx2.moveTo(0,100);  // 起始点，移动画笔到(0, 0)
+	ctx2.lineTo(400,100);  // 终点
+	ctx2.moveTo(200,0);  // 起始点，移动画笔到(0, 0)
+	ctx2.lineTo(200,200);  // 终点
+	ctx2.stroke();
+	ctx2.textAlign = "end";
+	ctx2.font="30px Arial";  // 字号 字体
+	ctx2.fillText("Hello World",200,100);  // 内容 起始位置 
+
+
+
+	var c3 = document.getElementById("myCanvas3");
+	var ctx3 = c3.getContext("2d");
+	ctx3.lineWidth = 1;  // 线条宽度
+	ctx3.translate(0.5,0.5);
+	ctx3.moveTo(0,100);  // 起始点，移动画笔到(0, 0)
+	ctx3.lineTo(400,100);  // 终点
+	ctx3.moveTo(200,0);  // 起始点，移动画笔到(0, 0)
+	ctx3.lineTo(200,200);  // 终点
+	ctx3.stroke();
+	ctx3.textAlign = "left";
+	ctx3.font="30px Arial";  // 字号 字体
+	ctx3.fillText("Hello World",200,100);  // 内容 起始位置 
+
+
+
+	var c4 = document.getElementById("myCanvas4");
+	var ctx4 = c4.getContext("2d");
+	ctx4.lineWidth = 1;  // 线条宽度
+	ctx4.translate(0.5,0.5);
+	ctx4.moveTo(0,100);  // 起始点，移动画笔到(0, 0)
+	ctx4.lineTo(400,100);  // 终点
+	ctx4.moveTo(200,0);  // 起始点，移动画笔到(0, 0)
+	ctx4.lineTo(200,200);  // 终点
+	ctx4.stroke();
+	ctx4.textAlign = "center";
+	ctx4.font="30px Arial";  // 字号 字体
+	ctx4.fillText("Hello World",200,100);  // 内容 起始位置 
+
+
+
+
+	var c5 = document.getElementById("myCanvas5");
+	var ctx5 = c5.getContext("2d");
+	ctx5.lineWidth = 1;  // 线条宽度
+	ctx5.translate(0.5,0.5);
+	ctx5.moveTo(0,100);  // 起始点，移动画笔到(0, 0)
+	ctx5.lineTo(400,100);  // 终点
+	ctx5.moveTo(200,0);  // 起始点，移动画笔到(0, 0)
+	ctx5.lineTo(200,200);  // 终点
+	ctx5.stroke();
+	ctx5.textAlign = "right";
+	ctx5.font="30px Arial";  // 字号 字体
+	ctx5.fillText("Hello World",200,100);  // 内容 起始位置
+
+
+
+
+</script>
+</body>
+</html>

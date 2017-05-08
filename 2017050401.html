@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>任务界面</title>
+	<link rel="stylesheet" href="css/base.css"/>
+	<style type="text/css">
+html,
+body {
+  height: 100%;
+  background-color: #e9ebee;
+}
+.container {
+  position: relative;
+  height: 100%;
+  min-height: 600px;
+  width: 1200px;
+  margin: auto;
+}
+
+.container .c-content {
+  position: absolute;
+  left: 140px;
+  top: 0;
+  height: 100%;
+  width: 920px;
+}
+.container .c-content .con-wrap {
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  box-shadow: 5px 5px 8px #999;
+  height: 98% ;
+  background-color: #fff;
+  position: relative;
+}
+.message .mes-top {
+  height: 60px;
+  padding: 26px 20px 5px;
+  border-bottom: 1px solid #ddd;
+}
+.message .mes-top h5 {
+  font-size: 20px;
+  line-height: 38px;
+}
+.message .mes-top p {
+  font-size: 12px;
+  color: #aaa;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.message .mes-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.message .mes-wrap .mes-text {
+  padding: 0 20px;
+  position: relative;
+  top: 0;
+}
+.message .mes-wrap .mes-text .see-long-ago {
+  text-align: center;
+  padding: 20px 0 10px;
+}
+.message .mes-wrap .mes-text .see-long-ago a {
+  font-size: 14px;
+  color: #888;
+}
+.message .mes-wrap .mes-text .time {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+.message .mes-wrap .mes-text .time span {
+  font-size: 13px;
+  color: #999;
+}
+.message .mes-wrap .mes-text .mes-text-box {
+  font-size: 14px;
+  clear: both;
+}
+.message .mes-wrap .mes-text .mes-text-box .name {
+  clear: both;
+}
+.message .mes-wrap .mes-text .mes-text-box .text {
+  max-width: 70%;
+  margin: 8px 10px;
+  padding: 10px 14px;
+  word-break: break-all;
+  border-radius: 10px;
+  position: relative;
+}
+.message .mes-wrap .mes-text .mes-text-box .text .triangle-out {
+  position: absolute;
+  top: -16px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+.message .mes-wrap .mes-text .mes-text-box .text .triangle-out .triangle-in {
+  position: absolute;
+  top: -7px;
+  border-top: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+.message .mes-wrap .mes-text .mes-text-box.right {
+  float: right;
+}
+.message .mes-wrap .mes-text .mes-text-box.right .text {
+  float: right;
+  border: 1px solid #cdcdcd;
+  background-color: #f3f3f3;
+}
+.message .mes-wrap .mes-text .mes-text-box.right .text .triangle-out {
+  right: 10px;
+  border-bottom: 8px solid #cdcdcd;
+  border-left: 18px solid transparent;
+  border-right: 2px solid transparent;
+}
+.message .mes-wrap .mes-text .mes-text-box.right .text .triangle-out .triangle-in {
+  right: -2px;
+  border-bottom: 8px solid #f3f3f3;
+  border-left: 18px solid transparent;
+  border-right: 2px solid transparent;
+}
+.message .mes-wrap .mes-text .mes-text-box.right .name {
+  text-align: right;
+}
+.message .mes-wrap .mes-text .mes-text-box.left {
+  float: left;
+}
+.message .mes-wrap .mes-text .mes-text-box.left .text {
+  border: 1px solid #cdcdcd;
+  background-color: #ffffff;
+}
+.message .mes-wrap .mes-text .mes-text-box.left .text .triangle-out {
+  left: 10px;
+  border-bottom: 8px solid #cdcdcd;
+}
+.message .mes-wrap .mes-text .mes-text-box.left .text .triangle-out .triangle-in {
+  left: -8px;
+  border-bottom: 8px solid #ffffff;
+}
+.message .mes-wrap .scroll-bar {
+  display: none;
+  position: absolute;
+  width: 8px;
+  height: 100px;
+  right: 5px;
+  top: 0;
+  border-radius: 4px;
+  background: #efefef;
+}
+.message .mes-wrap .scroll-bar.active,
+.message .mes-wrap .scroll-bar:hover {
+  background: #cdcdcd;
+}
+.message .mes-send {
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+  position: absolute;
+  width: 888px;
+  bottom: 0;
+  background: #fff;
+  z-index: 2;
+}
+.message .mes-send .send-handle a {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  margin: 0 5px;
+  background: url("../images/icon-send.png") no-repeat;
+}
+.message .mes-send .send-handle a.icon-send-1 {
+  background-position: 1px 1px;
+}
+.message .mes-send .send-handle a.icon-send-2 {
+  background-position: -90px 1px;
+}
+.message .mes-send .send-handle a.icon-send-3 {
+  background-position: -178px 1px;
+}
+.message .mes-send .input-text textarea {
+  resize: none;
+  width: 100%;
+  height: 80px;
+  border: 0;
+}
+.message .mes-send .input-text textarea:focus {
+  outline: none;
+}
+.message .mes-send .send-btn {
+  margin: 10px 20px 0 0;
+}
+.message .mes-send .send-btn button {
+  float: right;
+  background: #fff;
+  border: 1px solid #fff;
+  width: 60px;
+  height: 30px;
+  line-height: 28px;
+}
+.message .mes-send .send-btn button:hover {
+  border: 1px solid #ddd;
+  background: #efefef;
+}
+.message .mes-send .send-btn button:active {
+  outline: none;
+  border: none;
+  box-shadow: 0;
+}
+.message .mes-send .send-btn button:visited {
+  outline: none;
+  border: none;
+  box-shadow: 0;
+}
+
+	</style>
+</head>
+<body>
+
+
+<div class="container">
+
+	<div class="c-content">
+
+		<div class="con-wrap">
+			<div class="message">
+				<div class="mes-top">
+					<h5>#职业发展#</h5>
+					<p>职业发展是组织用来帮助员工获取目前及将来工作所需的技能、知识的一种规划。</p>
+				</div>
+				<div class="mes-wrap">
+
+					<div class="mes-text">
+						<div class="see-long-ago"><a href="javascript:void(0)">查看更早历史消息</a></div>
+						<div class="time"><span>9:30</span></div>
+						<div class="clearfix">
+							<div class="mes-text-box right">
+								<div class="name">我</div>
+								<div class="text">在干什么呢？<i class="triangle-out"><i class="triangle-in"></i></i></div>
+							</div>
+						</div>
+						<div class="cleaefix">
+							<div class="mes-text-box left">
+								<div class="name">范冰冰:</div>
+								<div class="text">我觉着大家不要过多的考虑解答是否专业或者完全正确，可以像朋友一样讨论下职业发展的可能性<i class="triangle-out"><i class="triangle-in"></i></i></div>
+							</div>
+						</div>
+                        <div class="cleaefix">
+                            <div class="mes-text-box left">
+                                <div class="name">范冰冰:</div>
+                                <div class="text">我觉着大家不要过多的考虑解答是否专业或者完全正确，可以像朋友一样讨论下职业发展的可能性<i class="triangle-out"><i class="triangle-in"></i></i></div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="mes-text-box right">
+                                <div class="name">我</div>
+                                <div class="text">在干什么呢？<i class="triangle-out"><i class="triangle-in"></i></i></div>
+                            </div>
+                        </div>
+						<div class="time"><span>10:00</span></div>
+
+						<div class="clearfix">
+							<div class="mes-text-box left">
+								<div class="name">范冰冰:</div>
+								<div class="text">吃<i class="triangle-out"><i class="triangle-in"></i></i></div>
+							</div>
+						</div>
+
+
+					</div>
+                    <div class="scroll-bar">
+
+                    </div>
+				</div>
+				<div class="mes-send">
+					<div class="input-text">
+						<textarea id="text_text" placeholder="说点什么... ..."></textarea>
+					</div>
+					<div class="send-btn clearfix">
+						<button id="send_btn">发送</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	(function($){
+
+	    function ScrollBar(opts){
+	        this.init(opts);
+	    }
+
+
+
+	    $.extend(ScrollBar.prototype, {
+	        init: function(opts){
+
+	            this.first(opts);
+
+	            this.judgeShow();
+	            this.addListenterBarMove();
+	            this.addListenerMousewheel();
+
+	            return this;
+
+	        },
+
+	        first: function(opts){
+	            var $wrap = this.$wrap = opts.wrap;
+	            var $inside = this.$inside = opts.inside;
+	            this.$bar = opts.bar;
+
+	            var insideH =this.insideH = $inside.outerHeight();
+	            var wrapH = this.wrapH = $wrap.height();
+
+	            var bl = this.bl = wrapH / insideH;
+	            this.barH = Math.floor(wrapH * bl); // 滚动条高度
+	        },
+
+
+	        judgeShow: function(){
+	            // 滚动条的展示与隐藏
+	            if (this.insideH > this.wrapH) {
+	                this.$bar.height(this.barH);
+	                this.$bar.show();
+	            } else {
+	                this.$bar.hide();
+	            }
+
+	            return this;
+	        },
+
+
+	        addListenterBarMove: function(){
+
+	            var _this = this;
+
+	            var $bar = this.$bar;
+	            var $wrap = this.$wrap;
+	            //var barTop = 0;
+	            var sy = -1;
+	            var ey = -1;
+
+	            $bar.on('mousedown', function(e){
+	                e.preventDefault();
+
+	                $bar.addClass('active');
+	                $(document).css('cursor', 'default');
+	                sy = e.clientY;
+
+
+	                $(document).on('mousemove.scroll', function(e){
+	                    ey = e.clientY;
+	                    var top = Math.floor(ey-sy);
+
+	                    _this.judgeHeight(top);
+
+	                });
+
+	                $(document).on('mouseup.scroll', function(e){
+	                    $bar.removeClass('active');
+	                    _this.barTop = $bar.offset().top - $wrap.offset().top;
+
+	                    $(document).off('.scroll')
+	                });
+
+	            });
+	        },
+
+
+	        addListenerMousewheel: function(){
+
+	            var _this = this;
+
+	            var $wrap = this.$wrap;
+	            var $bar = this.$bar;
+
+	            var bl = this.bl;
+
+	            $wrap.on('mousewheel DOMMouseScroll',function(e){
+	                e.preventDefault();
+
+	                var speedH = 40;
+	                var oEv = e.originalEvent;
+	                var wheelRange = oEv.wheelDelta ? -oEv.wheelDelta/120 : (oEv.detail || 0)/3;
+
+	                var top = Math.floor(wheelRange*speedH*bl);
+
+	                _this.judgeHeight(top);
+
+	                _this.barTop = $bar.offset().top - $wrap.offset().top;
+	            });
+	        },
+
+	        // 根据滚条滚动的高度，判断改变整体移动的高度
+	        judgeHeight: function (h){
+
+	            var $bar = this.$bar;
+	            var $inside = this.$inside;
+
+	            var wrapH = this.wrapH;
+	            var barH = this.barH;
+	            var bl = this.bl;
+
+	            var barTop = this.barTop;
+
+	            if(h + barTop > 0 && h + barTop < wrapH - barH){
+	                $bar.css('top',h + barTop);
+
+	                $inside.css('top', - barTop/bl - h/bl);
+	            }else if(h + barTop < 0){
+	                $bar.css('top',0);
+
+	                $inside.css('top', 0);
+	            }else if(h + barTop > wrapH - barH){
+	                $bar.css('top',wrapH - barH);
+
+	                $inside.css('top', -(wrapH - barH)/bl );
+	            }
+	        },
+
+	        // wrap高度改变,inside高度不变
+	        wrapResize: function(){
+
+	            var $bar = this.$bar;
+
+	            var insideH =this.insideH;
+	            var wrapH = this.wrapH = this.$wrap.height();
+
+
+
+
+	            // 滚动条的展示与隐藏
+	            if(insideH > wrapH){
+	                var bl = this.bl = wrapH/insideH;
+	                var barH = this.barH = Math.floor(wrapH*bl); // 滚动条高度
+
+	                this.$bar.height(barH);
+
+	                var scrollH = this.$wrap.offset().top -this.$inside.offset().top;// 主体内部已卷去的高度
+
+	                $bar.css('top', scrollH*bl);
+
+	                $bar.show();
+
+	            }else{
+
+	                $bar.hide();
+	            }
+
+	            return this;
+	        },
+
+	        // inside高度改变，wrap高度不变
+	        updateInside: function(){
+
+	            var $bar = this.$bar;
+	            var $inside = this.$inside;
+	            var $wrap = this.$wrap;
+
+	            var outInsideH = this.insideH;
+	            var outBarH = this.barH;
+	            var barTop = $bar.offset().top - $wrap.offset().top;
+
+	            var insideH =this.insideH = $inside.outerHeight();
+	            var wrapH = this.wrapH = $wrap.height();
+
+	            var bl = this.bl = wrapH / insideH;
+	            var barH = this.barH = Math.floor(wrapH * bl*10)/10; // 滚动条高度
+
+	            $bar.height(barH);
+
+
+	            if(barTop + outBarH > wrapH - 400){
+	                this.judgeHeight(insideH - outInsideH + 400);
+	            }else{
+	                var scrollH = this.$wrap.offset().top -this.$inside.offset().top;// 主体内部已卷去的高度
+
+	                $bar.css('top', scrollH*bl);
+	            }
+
+
+	            this.judgeShow();
+
+	            return this;
+
+	        }
+
+
+	    });
+
+	    window.ScrollBar = ScrollBar;
+
+
+
+	})(window.jQuery);
+
+
+
+	(function($){
+	    var $bar = $('.message .scroll-bar');
+
+	    var conWrapH = $('.con-wrap').outerHeight();
+	    var mesTopH = $('.message .mes-top').outerHeight();
+	    var mesSendH = $('.message .mes-send').outerHeight();
+	    var mesTextH = $('.message .mes-text').outerHeight();
+	    var mesWrapClipHeight = conWrapH - mesTopH - mesSendH;
+
+	    $('.message .mes-wrap').height(mesWrapClipHeight);
+
+
+	    var scrollBar = new ScrollBar({
+	        wrap: $('.mes-wrap'),
+	        inside: $('.mes-text'),
+	        bar: $('.scroll-bar')
+	    });
+
+	    $(window).resize(function(){
+
+	        // 根据window窗口改变来判断外部的包含窗口是否发生改变
+	        conWrapH = $('.con-wrap').outerHeight();
+	        mesWrapClipHeight = conWrapH - mesTopH - mesSendH;
+	        $('.message .mes-wrap').height(mesWrapClipHeight);
+
+	        scrollBar.wrapResize();
+
+	    });
+
+
+	    // 点击发送 更改文本
+	    $('#send_btn').on('click', function(){
+	        var text = $('#text_text').val();
+	        if(text  === ''){return;}
+	        $('#text_text').val('');
+
+	        var dom = $('<div class="clearfix"></div>');
+	        text = '<div class="mes-text-box right"> <div class="name">我</div> <div class="text">'+ text +'<i class="triangle-out"><i class="triangle-in"></i></i></div> </div>';
+	        dom.html(text);
+
+	        $('.mes-text').append(dom);
+
+	        scrollBar.updateInside();
+
+	    });
+
+
+	    $('#text_text').on('keydown', function(e){
+
+
+	        var text = $('#text_text').val().trim();
+
+	        if(e.ctrlKey && e.which == 13){
+	            text += '\n';
+	            $('#text_text').val(text);
+
+	        }else if(e.keyCode == 13){
+	            e.preventDefault();
+	            if(text  === ''){return;}
+	            $('#text_text').val('');
+
+	            var dom = $('<div class="clearfix"></div>');
+	            text = '<div class="mes-text-box right"> <div class="name">我</div> <div class="text">'+ text +'<i class="triangle-out"><i class="triangle-in"></i></i></div> </div>';
+	            dom.html(text);
+
+	            $('.mes-text').append(dom);
+
+	            scrollBar.updateInside();
+	        }
+
+	    });
+
+
+
+
+
+
+
+
+
+	})(window.jQuery);
+
+
+</script>
+</body>
+</html>

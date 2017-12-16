@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas方法measureText宽度测试</title>
+	<style type="text/css">
+		body{
+			margin: 20px;
+		}
+		span{
+			background: #efefef;
+			margin: 2px;
+		}
+	</style>
+</head>
+<body>
+
+<h3>根据measureText获取的文本长度绘制同等宽度的方块</h3>
+
+
+<pre id='a'>
+
+</pre>
+<canvas id="myCanvas" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+
+<pre  id='b'>
+
+</pre>
+<canvas id="myCanvas2" width="400" height="200" 
+style="background: #efefef;">
+</canvas>
+
+
+<p>由此可知 <span>ctx.measureText('hello world').width</span>获取的是近似值</p>
+<script type="text/javascript">
+
+var $ = function(id){
+	return document.getElementById(id);
+}
+
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.font="12px Arial";  // 字号 字体
+	ctx.fillText("Hello World",100,50);  // 内容 起始位置
+	var d = ctx.measureText('hello world').width;
+	ctx.fillText("你好世界",100,100);  // 内容 起始位置
+	var dd = ctx.measureText('你好世界').width;
+	ctx.fillText("你好世界..",100,150);  // 内容 起始位置
+	var ddd = ctx.measureText('你好世界..').width;
+	ctx.rect(100,50,d,10);
+	ctx.rect(100,100,dd,10);
+	ctx.rect(100,150,ddd,10);
+	ctx.fill();
+	$('a').innerText = '字体字号为  12px Arial';
+
+
+
+	var c2 = document.getElementById("myCanvas2");
+	var ctx2 = c2.getContext("2d");
+	ctx2.font="26px Arial";  // 字号 字体
+	ctx2.fillText("Hello World",100,50);  // 内容 起始位置
+	var d2 = ctx2.measureText('hello world').width;
+	ctx2.fillText("你好世界",100,100);  // 内容 起始位置
+	var dd2 = ctx2.measureText('你好世界').width;
+	ctx2.fillText("你好世界。。",100,150);  // 内容 起始位置
+	var ddd2 = ctx2.measureText('你好世界。。').width;
+	ctx2.rect(100,50,d2,10);
+	ctx2.rect(100,100,dd2,10);
+	ctx2.rect(100,150,ddd2,10);
+	ctx2.fill();
+	$('b').innerText = '字体字号为  26px Arial';
+
+
+	var c3 = document.getElementById("myCanvas3");
+	var ctx3 = c3.getContext("2d");
+	ctx3.font="20px Arial";  // 字号 字体
+	ctx3.fillText("Hello World",100,100);  // 内容 起始位置 
+	var d3 = ctx3.measureText('hello world').width;
+	ctx3.rect(100,100,d3,10);
+	ctx3.fill();
+	$('b').innerText = '获取文本在canvas画布的长度为  '+d3+'\n'+'字体字号为  20px Arial';
+
+
+	var c4 = document.getElementById("myCanvas4");
+	var ctx4 = c4.getContext("2d");
+	ctx4.font="24px Arial";  // 字号 字体
+	ctx4.fillText("Hello World",100,100);  // 内容 起始位置 
+
+
+
+
+	var c5 = document.getElementById("myCanvas5");
+	var ctx5 = c5.getContext("2d");
+	ctx5.font="30px Arial";  // 字号 字体
+	ctx5.fillText("Hello World",100,100);  // 内容 起始位置
+
+
+
+
+</script>
+</body>
+</html>

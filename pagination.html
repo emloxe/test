@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	a{text-decoration: none;}
+	.page-nav{text-align: center;padding: 20px 0 50px ;}
+	.page-nav a,span{display: inline-block;  background: #fff ; border: 1px solid #d3d3d3; color: #666; font: 13px/23px 宋体,Arial; height: 23px; margin: 0 4px; padding: 4px 20px; border-radius: 5px;}
+	.page-nav i{font-style: normal;color: #666;}
+	.page-nav a:hover{background-color: #f5f5f5;}
+	.page-nav span.active{background-color: #49898F;color: #fff;border: 1px solid #49898F;}
+	</style>
+</head>
+<body>
+<div>
+	<div>
+		当前页数：<input type="text" id="n1">
+	</div>
+	<div>
+		总页数：<input type="text" id="n2">
+	</div>
+	<button id="btn">确定</button>
+	
+</div>
+
+<div id="page_nav" class="page-nav"></div>
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+var dom = $('page_nav');
+var btn = $('btn');
+btn.onclick = function(){
+
+	var html = renderPageNum($('n1').value, $('n2').value);
+	dom.innerHTML = html;
+}
+
+
+
+function renderPageNum(n1, n2) {
+    var html = '';
+    n1 = n1*1;
+    n2 = n2*1;
+    if (n2 == 1) return html;
+    if (n1 > n2) return html;
+
+    if (n1 != 1) {
+        html += '<a id="pre_btn" class="btn" href="javascript:;">上一页</a>';
+    }
+
+
+    // 当前页码左边判断
+    if (n1 < 4) {
+
+        for (var i = 1; i < n1; i++) {
+            html += '<a data-page="'+i+'" href="javascript:;">' + i + '</a>';
+        }
+    } else {
+        html += '<a data-page="1" href="javascript:;">1</a><i>...</i>';
+
+        for (var i = 2; i > 0; i--) {
+            html += '<a data-page="' + (n1 - i) + '" href="javascript:;">' + (n1 - i) + '</a>';
+        }
+    }
+
+
+    html += '<span class="active">' + n1 + '</span>';
+
+    // 当前页码右边判断
+    
+    if (n1 != n2) {
+        
+        if (n2 - n1 < 4) {
+            for (var i = n1 + 1; i < n2; i++) {
+                html += '<a href="javascript:;">' + i + '</a>';
+            }
+
+        } else {
+
+            for (var i = 1; i <= 2; i++) {
+                html += '<a data-page="' + (n1 + i) + '" href="javascript:;">' + (n1 + i) + '</a>';
+            }
+            html += '<i>...</i>';
+        }
+        html += '<a data-page="' + n2 + '" href="javascript:;">' + n2 + '</a>';
+
+        html += '<a id="next_btn"  class="btn" href="javascript:;">下一页</a>';
+    }
+
+    return html;
+}
+
+
+</script>
+</body>
+</html>

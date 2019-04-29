@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>canvas绘制流动线</title>
+  <script type="text/javascript" src="./js/dat.gui.js"></script>
+</head>
+<body>
+<canvas id="canvas" style="display: block; margin: 0;border: 1px solid #aaa">
+	您的浏览器不支持canvas
+</canvas>
+<script type="text/javascript">
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const width = 500;
+  const height = 400;
+
+  // 高分屏适配
+  const ratio = window.devicePixelRatio;
+  canvas.width = width * ratio
+  canvas.height = height * ratio
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  ctx.scale(ratio, ratio);
+  
+  function draw(color1, color2, startNum){
+    ctx.clearRect(0, 0, width, height);
+    ctx.lineWidth = 4; 
+    ctx.beginPath();
+    ctx.strokeStyle = color1;
+    ctx.setLineDash([]);
+    ctx.moveTo(20, height / 2);
+    ctx.lineTo(width - 20, height / 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.lineDashOffset = startNum;
+    ctx.strokeStyle = color2;
+    ctx.setLineDash([12, 4, 8, 4]);
+    ctx.moveTo(20, height / 2);
+    ctx.lineTo(width - 20, height / 2);
+    ctx.stroke();
+  }
+
+  let color1 = '#FFFFFF';
+  let color2 = '#FF0000';
+  let startNum = 10;
+
+  draw(color1, color2, startNum);
+
+  const gui = new dat.GUI({name: 'My GUI'});
+  const palette = {
+    color1,
+    color2,
+  };
+  const color1Gui = gui.addColor(palette, 'color1');
+  color1Gui.onChange((value)=>{
+    color1 = value;
+    draw(color1, color2, startNum);
+  });
+
+  const color2Gui = gui.addColor(palette, 'color2');
+  color2Gui.onChange((value)=>{
+    color2 = value;
+    draw(color1, color2, startNum);
+  });
+
+  const lineDashOffset = {
+    lineDashOffset: startNum,
+    min: 10,
+    max: 28,
+    step: 1,
+  };
+
+  const startNumGui = gui.add(lineDashOffset, 'lineDashOffset', 0, 28, 1);
+  startNumGui.onChange((value)=>{
+    startNum = value;
+    draw(color1, color2, startNum);
+  });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .compass {
+      position: absolute;
+      left: 40px;
+      bottom: 40px;
+      width: 116px;
+      height: 116px;
+    }
+    .compass2 {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      width: 116px;
+      height: 116px;
+    }
+    .compass .bottom, .compass .top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+  </style>
+</head>
+
+<body>
+  <div style="background: #041120;">
+    <canvas id="monoCanvas" />
+  </div>
+  <div class="compass2">
+  </div>
+  <div class="compass">
+    <img src="./compass3.png"  id="compass" class="bottom" ref="direction">
+    <canvas id="canvas" width="116" height="116"></canvas>
+    <img src="./compass2.png" class="top">
+  </div>
+  <script src="./t.js"></script>
+
+  <script>
+      let box = new mono.DataBox();
+      let network = window.network = new mono.Network3D(box, null, monoCanvas);
+      network.setClearColor('#051322');
+
+      mono.Utils.autoAdjustNetworkBounds(
+        network,
+        document.documentElement,
+        "clientWidth",
+        "clientHeight"
+      );
+
+      const isNetwork3d = (network) => {
+        let flag = true;
+        if (!network || (network && !(network instanceof mono.Network3D))) {
+          console.error('network must be the instance of mono.Network3D.');
+          flag = false;
+        }
+        return flag;
+      };
+
+      const clearBackground = (network) => {
+        // code goes here
+        if (isNetwork3d(network)) {
+          network.setClearColor(0, 0, 0);
+          network.setClearAlpha(0);
+        }
+      };
+
+      clearBackground(network);
+
+      network.setShowAxis(true);
+
+      let pointLight = new mono.PointLight(0xffffff, 1.5);
+      pointLight.setPosition(1000, 1000, 1000);
+      box.add(pointLight);
+      box.add(new mono.AmbientLight(0x888888));
+
+      const compass = document.getElementById('compass');
+
+
+      // canvas
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      network.setRenderCallback(function() {
+        const { x: tx, z: tz } = network.getCamera().target;
+        const { x: px, z: pz } = network.getCamera()._position;
+        const x = tx - px;
+        const z = tz - pz;
+
+        const startAngle = getAngle([0, 1]) - 90;
+
+        const a1 = getAngle([0, -1]);
+        const a2 = getAngle([x, z]);
+        const includedAngle = a1 - a2;
+
+        console.log('初始角度', startAngle, '夹角', includedAngle);
+
+        compass.style.transform = `rotate(${includedAngle + startAngle}deg)`;
+
+
+        // canvas
+        const w = 116;
+        r = 44;
+        const directionStringArr = [['北'], ['西'], ['南'], ['东']];
+
+        const nAngle = -includedAngle + startAngle + 90;
+        const nCoo = [r * Math.cos(getRadianFromAngle(nAngle)), -r * Math.sin(getRadianFromAngle(nAngle))];
+        directionStringArr[0].push(...nCoo);
+
+        const wAngle = -includedAngle + startAngle + 180;
+        const wCoo = [r * Math.cos(getRadianFromAngle(wAngle)), -r * Math.sin(getRadianFromAngle(wAngle))];
+        directionStringArr[1].push(...wCoo);
+
+        const sAngle = -includedAngle + startAngle + 270;
+        const sCoo = [r * Math.cos(getRadianFromAngle(sAngle)), -r * Math.sin(getRadianFromAngle(sAngle))];
+        directionStringArr[2].push(...sCoo);
+
+        const eAngle = -includedAngle + startAngle;
+        const eCoo = [r * Math.cos(getRadianFromAngle(eAngle)), -r * Math.sin(getRadianFromAngle(eAngle))];
+        directionStringArr[3].push(...eCoo);
+
+        ctx.clearRect(0, 0, w, w);
+        ctx.save();
+        ctx.font='14px Arial';  // 字号 字体
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+        ctx.translate(w / 2, w / 2);
+        ctx.fillStyle = '#ffffff';
+        directionStringArr.forEach((v) => {
+          ctx.fillText(v[0], v[1], v[2]);
+        });
+
+        ctx.restore();
+
+      });
+
+      function getRadianFromAngle(angle) {
+        return angle / 180 * Math.PI;
+      }
+
+      function getAngleFromRadian(radian) {
+        return radian * 180 / Math.PI;
+      }
+
+      function getAngle(v) {
+        const a1 = (Math.atan(v[1] / v[0]) / Math.PI) * 180;
+        let an = 0;
+        if (v[0] >= 0 && v[1] >= 0) {
+          an = a1;
+        } else if (v[0] <= 0 && v[1] >= 0) {
+          an = 180 + a1;
+        } else if (v[0] < 0 && v[1] <= 0) {
+          an = 180 + a1;
+        } else if (v[0] >= 0 && v[1] <= 0) {
+          an = 360 + a1;
+        }
+        return an;
+      }
+
+  </script>
+</body>
+
+</html>
